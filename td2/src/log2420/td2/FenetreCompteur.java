@@ -3,6 +3,7 @@ package log2420.td2;
 
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JMenuBar;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,9 +28,21 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
         Integer jetons = ((CompteurJetons)o).getJetons();
         jTextField2.setText(jetons.toString());
         jProgressBar1.setValue(((CompteurJetons)o).getProgres());
+        if(!cpu.termine()){
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(true);
+        } else {
+            jButton1.setEnabled(true);
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(false);
+        }
+        if(((CompteurJetons)o).getProgres() == 100){
+            cpu.msgSucces();
+        }
     }
  
-    public FenetreCompteur() {
+    public FenetreCompteur() {        
         initComponents();
         setVisible(true);
         setTitle("Compteur de jetons");
@@ -57,14 +70,16 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextField1.setText("jTextField1");
 
         jButton1.setText("Choisir Fichier");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +96,7 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
         });
 
         jButton3.setText("Annuler");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -91,7 +107,27 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
 
         jLabel2.setText("Progres:");
 
-        jTextField2.setText("jTextField2");
+        jMenu1.setText("Fichier");
+
+        jMenuItem1.setText("Ouvrir...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Fermer");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,12 +198,25 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         cpu.arreter();
+        jTextField2.setText("annulé");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         cpu.executer();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        jTextField1.setText(cpu.selectFichier(this));
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        cpu.arreter();
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +259,10 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

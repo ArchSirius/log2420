@@ -18,8 +18,9 @@ import javax.swing.SwingWorker;
  */
 public class Computer extends SwingWorker<Long, Void> {
 
-    CompteurJetons compteur;
-    File fichier;
+    private CompteurJetons compteur;
+    private File fichier;
+    private boolean termine = false;
     
     public Computer(Observer obs) {
         compteur = new CompteurJetons(obs);
@@ -37,7 +38,7 @@ public class Computer extends SwingWorker<Long, Void> {
         
         String filepath = "";
         try{
-            filepath = fichier.getAbsolutePath();
+            filepath = fichier.getName();
         } catch (NullPointerException e){
         }
         
@@ -56,13 +57,7 @@ public class Computer extends SwingWorker<Long, Void> {
 
     @Override
     protected void done() {
-        try {
-            JOptionPane.showMessageDialog(null,
-                    "Le comptage est terminé avec succès!",
-                    "Succès",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ignore) {
-        }
+        termine = true;
     }
     
     public void arreter(){
@@ -70,6 +65,18 @@ public class Computer extends SwingWorker<Long, Void> {
     }
     
     public void executer(){
+        termine = false;
         execute();
+    }
+    
+    public boolean termine(){
+        return termine;
+    }
+    
+    public void msgSucces(){
+        JOptionPane.showMessageDialog(null,
+                "Le comptage est terminé",
+                "Comptage terminé",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
