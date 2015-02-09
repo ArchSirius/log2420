@@ -1,7 +1,8 @@
 
+package log2420.td2;
+
 import java.util.Observable;
 import java.util.Observer;
-import log2420.td2.CompteurJetons;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,6 +19,9 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
     /**
      * Creates new form FenetreCompteur
      */
+    
+    private Computer cpu = new Computer(this);
+    
     @Override
     public void update(Observable o, Object arg){
         Integer jetons = ((CompteurJetons)o).getJetons();
@@ -30,6 +34,7 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
  
     public FenetreCompteur() {
         initComponents();
+        setVisible(true);
     }
     
     
@@ -148,6 +153,7 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        jTextField1.setText(cpu.selectFichier(this));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

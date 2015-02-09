@@ -8,6 +8,7 @@ package log2420.td2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Observer;
+import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 
 /**
@@ -23,8 +24,23 @@ public class Computer extends SwingWorker<Long, Void> {
         compteur = new CompteurJetons(obs);
     }
     
-    public void setFichier(File fichier) {
-        this.fichier = fichier;
+    public String selectFichier(FenetreCompteur parent) {
+        fichier = null;
+        
+        final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(parent);
+        
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            fichier = fc.getSelectedFile();
+        }
+        
+        String filepath = "";
+        try{
+            filepath = fichier.getAbsolutePath();
+        } catch (NullPointerException e){
+        }
+        
+        return filepath;
     }
     
     @Override
