@@ -27,9 +27,6 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
         Integer jetons = ((CompteurJetons)o).getJetons();
         jTextField2.setText(jetons.toString());
         jProgressBar1.setValue(((CompteurJetons)o).getProgres());
-        
-        
-        
     }
  
     public FenetreCompteur() {
@@ -76,6 +73,11 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
         });
 
         jButton2.setText("Compter");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Annuler");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +147,7 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
                         .addComponent(jLabel2)
                         .addGap(4, 4, 4))
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,7 +160,13 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        cpu.arreter();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        cpu.executer();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -60,4 +60,12 @@ public class Computer extends SwingWorker<Long, Void> {
         } catch (Exception ignore) {
         }
     }
+    
+    public void arreter(){
+        cancel(true);
+    }
+    
+    public void executer(){
+        execute();
+    }
 }
