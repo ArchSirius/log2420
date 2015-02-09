@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Observer;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 /**
@@ -56,7 +57,10 @@ public class Computer extends SwingWorker<Long, Void> {
     @Override
     protected void done() {
         try {
-            //what to do when done
+            JOptionPane.showMessageDialog(null,
+                    "Le comptage est terminé avec succès!",
+                    "Succès",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ignore) {
         }
     }

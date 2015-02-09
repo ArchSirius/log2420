@@ -32,6 +32,7 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
     public FenetreCompteur() {
         initComponents();
         setVisible(true);
+        setTitle("Compteur de jetons");
     }
     
     
