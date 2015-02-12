@@ -32,12 +32,12 @@ public class FenetreAide extends javax.swing.JFrame implements Observer {
         lblPile1.setText(String.valueOf(((Calculatrice)o).getPile(1)));
         lblPile2.setText(String.valueOf(((Calculatrice)o).getPile(2)));
         lblPile3.setText(String.valueOf(((Calculatrice)o).getPile(3)));
-        
-        lblExo.setText((((Calculatrice)o).obtenirExerciceEnCours().obtenirQuestion()));
-        
-        lblValide.setText(((Calculatrice)o).validerSequence() ? "VALIDE" : "INVALIDE"); 
-        jProgressBar1.setValue(((Calculatrice)o).obtenirProgresApprentissage());
-        
+        if (((Calculatrice) o).obtenirExerciceEnCours() != null) {
+            lblExo.setText((((Calculatrice) o).obtenirExerciceEnCours().obtenirQuestion()));
+
+            lblValide.setText(((Calculatrice) o).validerSequence() ? "VALIDE" : "INVALIDE");
+            jProgressBar1.setValue(((Calculatrice) o).obtenirProgresApprentissage());
+        }
 
         
     }
@@ -210,6 +210,8 @@ public class FenetreAide extends javax.swing.JFrame implements Observer {
 
     private void btnRecommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecommencerActionPerformed
         // TODO add your handling code here:
+        calc.reinitialiser();
+        jProgressBar1.setValue(0);
     }//GEN-LAST:event_btnRecommencerActionPerformed
 
     /**

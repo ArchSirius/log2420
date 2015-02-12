@@ -38,9 +38,10 @@ public class FenetreCalc extends javax.swing.JFrame implements Observer{
      * http://stackoverflow.com/questions/11838689/documentfilter-allowing-only-numbers-and-period-into-jtextfield
      */
     public void filtre() {
-        Filtre filtre = new Filtre();
-        ((AbstractDocument) jTextField.getDocument()).setDocumentFilter(filtre);
-        jTextField.setHorizontalAlignment(JTextField.CENTER);
+    //    Filtre filtre = new Filtre();
+    //    ((AbstractDocument) jTextField.getDocument()).setDocumentFilter(filtre);
+    //    jTextField.setHorizontalAlignment(JTextField.CENTER);
+    // Filtre enlevé car il cause un problème d'affichage
     }
     
     @Override

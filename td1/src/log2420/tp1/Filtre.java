@@ -12,6 +12,7 @@ import javax.swing.text.DocumentFilter;
 /**
  * Tiré de
  * http://stackoverflow.com/questions/11838689/documentfilter-allowing-only-numbers-and-period-into-jtextfield
+ * David Tunnel & Hovercraft Full of Eels, 7 août 2012
  */
 public class Filtre extends DocumentFilter {
 
@@ -20,6 +21,6 @@ public class Filtre extends DocumentFilter {
             throws BadLocationException {
         fb.insertString(decalage, texte.replaceAll("[^0-9.]", ""), attribut);
         // Ce filtre n'accepte que les chiffres et les points.
-        // Tout autre caractère est supprimé.
+        // Tout autre caractère est rejeté.
     }
 }
