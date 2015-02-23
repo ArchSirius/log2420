@@ -1,55 +1,62 @@
+/**
+ * Question bonus 1: erreur de conception
+ * Lorsque l'on cliquait sur Annuler, on ne pouvait pas choisir à nouveau un
+ * fichier. L'implémentation actuelle corrige cela et permet de choisir un
+ * nouveau fichier après annulation / complétion.
+ */
+
 
 package log2420.td2;
 
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JMenuBar;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
- * @author pacomebondet
+ * @author Samuel Rondeau
  */
 public class FenetreCompteur extends javax.swing.JFrame implements Observer {
-
-    /**
-     * Creates new form FenetreCompteur
-     */
     
     private Computer cpu = new Computer(this);
-    
+
     @Override
-    public void update(Observable o, Object arg){
-        Integer jetons = ((CompteurJetons)o).getJetons();
-        jTextField2.setText(jetons.toString());
-        jProgressBar1.setValue(((CompteurJetons)o).getProgres());
-        if(!cpu.termine()){
-            jButton1.setEnabled(false);
-            jButton2.setEnabled(false);
-            jButton3.setEnabled(true);
+    public void update(Observable o, Object arg) {
+        Integer jetons = ((CompteurJetons) o).getJetons();
+        txtJetons.setText(jetons.toString());
+        pgrProgres.setValue(((CompteurJetons) o).getProgres());
+        // tâche en cours
+        if (!cpu.termine()) {
+            btnChoisir.setEnabled(false);
+            btnCompter.setEnabled(false);
+            btnAnnuler.setEnabled(true);
+            // aucune tâche en cours
         } else {
-            jButton1.setEnabled(true);
-            jButton2.setEnabled(true);
-            jButton3.setEnabled(false);
+            btnChoisir.setEnabled(true);
+            btnCompter.setEnabled(true);
+            btnAnnuler.setEnabled(false);
         }
-        if(((CompteurJetons)o).getProgres() == 100){
+        // tâche complétée
+        if (((CompteurJetons) o).getProgres() == 100) {
             cpu.msgSucces();
+            reinitialiser();
         }
     }
- 
-    public FenetreCompteur() {        
+
+    public FenetreCompteur() {
         initComponents();
         setVisible(true);
         setTitle("Compteur de jetons");
     }
-    
-    
 
+    // Valeurs par défaut
+    public void reinitialiser() {
+        btnChoisir.setEnabled(true);
+        btnCompter.setEnabled(true);
+        btnAnnuler.setEnabled(false);
+        cpu = new Computer(this);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,19 +68,19 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        txtFichier = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        btnChoisir = new javax.swing.JButton();
+        btnCompter = new javax.swing.JButton();
+        btnAnnuler = new javax.swing.JButton();
+        pgrProgres = new javax.swing.JProgressBar();
+        lblNombre = new javax.swing.JLabel();
+        lblProgres = new javax.swing.JLabel();
+        txtJetons = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnuFichier = new javax.swing.JMenu();
+        mnuOuvrir = new javax.swing.JMenuItem();
+        mnuFermer = new javax.swing.JMenuItem();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -81,51 +88,51 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Choisir Fichier");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnChoisir.setText("Choisir Fichier");
+        btnChoisir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnChoisirActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Compter");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCompter.setText("Compter");
+        btnCompter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCompterActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Annuler");
-        jButton3.setEnabled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAnnuler.setText("Annuler");
+        btnAnnuler.setEnabled(false);
+        btnAnnuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAnnulerActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Nombre de Jetons:");
+        lblNombre.setText("Nombre de Jetons:");
 
-        jLabel2.setText("Progres:");
+        lblProgres.setText("Progres:");
 
-        jMenu1.setText("Fichier");
+        mnuFichier.setText("Fichier");
 
-        jMenuItem1.setText("Ouvrir...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnuOuvrir.setText("Ouvrir...");
+        mnuOuvrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnuOuvrirActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mnuFichier.add(mnuOuvrir);
 
-        jMenuItem2.setText("Fermer");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mnuFermer.setText("Fermer");
+        mnuFermer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mnuFermerActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        mnuFichier.add(mnuFermer);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnuFichier);
 
         setJMenuBar(jMenuBar1);
 
@@ -138,26 +145,26 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFichier, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(btnChoisir))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
+                                .addComponent(lblNombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtJetons, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
+                                .addComponent(lblProgres)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pgrProgres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(60, 60, 60)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btnCompter, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAnnuler, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,58 +172,57 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtFichier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChoisir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
+                    .addComponent(btnCompter)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblNombre)
+                            .addComponent(txtJetons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
+                    .addComponent(btnAnnuler)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(lblProgres)
                         .addGap(4, 4, 4))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pgrProgres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        jTextField1.setText(cpu.selectFichier(this));
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnChoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoisirActionPerformed
+        cpu = new Computer(this);
+        txtFichier.setText(cpu.selectFichier(this));
+    }//GEN-LAST:event_btnChoisirActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+    private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnulerActionPerformed
         cpu.arreter();
-        jTextField2.setText("annulé");
-    }//GEN-LAST:event_jButton3ActionPerformed
+        txtJetons.setText("annulé");
+        reinitialiser();
+    }//GEN-LAST:event_btnAnnulerActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    private void btnCompterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompterActionPerformed
         cpu.executer();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCompterActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        jTextField1.setText(cpu.selectFichier(this));
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void mnuOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOuvrirActionPerformed
+        txtFichier.setText(cpu.selectFichier(this));
+    }//GEN-LAST:event_mnuOuvrirActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+    private void mnuFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFermerActionPerformed
+        // arrêter le swingworker
         cpu.arreter();
+        // tout fermer
         setVisible(false);
         dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_mnuFermerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,20 +260,20 @@ public class FenetreCompteur extends javax.swing.JFrame implements Observer {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JButton btnAnnuler;
+    private javax.swing.JButton btnChoisir;
+    private javax.swing.JButton btnCompter;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblProgres;
+    private javax.swing.JMenuItem mnuFermer;
+    private javax.swing.JMenu mnuFichier;
+    private javax.swing.JMenuItem mnuOuvrir;
+    private javax.swing.JProgressBar pgrProgres;
+    private javax.swing.JTextField txtFichier;
+    private javax.swing.JTextField txtJetons;
     // End of variables declaration//GEN-END:variables
 }
