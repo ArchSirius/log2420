@@ -6,7 +6,7 @@
  */
 
 
-package log2420.td2;
+package compteurjetons;
 
 import java.util.Observable;
 import java.util.Observer;

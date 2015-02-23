@@ -1,4 +1,4 @@
-package log2420.td2;
+package compteurjetons;
 
 import java.io.File;
 import java.io.FileNotFoundException;
