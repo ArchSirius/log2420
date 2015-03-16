@@ -27,9 +27,16 @@
 		dropPin();
 	});
 
-	$("#monBouton").click(function(){
-	});
+	$.getJSON( "villes.json", function( data ) {
+		var villes = [];
+		$.each( data, function( key, val ) {
+			villes.push( key );
+		});
 
+		$('#ville').autocomplete({
+			source: villes
+		});
+	});
 
 				
 	var mapOptions = {
@@ -63,7 +70,4 @@
 	//google.maps.event.addDomListener(window, 'load', initialize);
 	window.onload = loadScript;
 
-
-
-			
 });
