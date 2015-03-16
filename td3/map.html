@@ -14,62 +14,69 @@
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjonwWBWoE1W6L8sU7KPl7zkRLSaPNC2o&amp;sensor=false"></script>
 		
 		<script type="text/javascript" src="map.js"></script>
-		<head>
-    <title>Carte du Quebec</title>
-    
-  </head>
-  <body>
-   
+		<title>PolyMap</title>
+
 	</head>
+
 	<body>
-
-		<div class="maClasse">
-			<h1>Ceci est un titre de niveau 1</h1>
-			<p>Ceci est un paragraphe!</p>
+		<style>
+			html, body, #map-canvas {
+				height: 400px;
+				width: 600px;
+				margin: 20px;
+				padding: 2px
+			}
+		</style>
+		<!-- FRANCAIS -->
+		<div class="maClasse" id="fr">
+			<h1>Carte des villes du Québec</h1>
+			<p>Saisissez le nom d'une ville</p>
+			<form>
+				<input type="text">
+				<input type="submit" id="btnRecherche" value="Recherche">
+			</form>
 			
-			<button id="monBouton">Mon bouton</button>
-
-			<div id="map-canvas"></div>
+			<button id="btnEn" style="width:70px">English</button>
+		</div>
+		<!-- ANGLAIS -->
+		<div hidden class="maClasse" id="en">
+			<h1>Map of Quebec</h1>
+			<p>Enter city name</p>
+			<form>
+				<input type="text">
+				<input type="submit" id="btnSearch" value="Recherche">
+			</form>
+			
+			<button id="btnFr" style="width:70px">Français</button>
 		</div>
 
- 		
+		<!-- Map-->
+		<div id="map-canvas">
+			<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+			<meta charset="utf-8">
+			<script>
+				function initialize() {
+					var mapOptions = {
+					zoom: 4,
+					center: new google.maps.LatLng(46.8167, -71.2167)
+					};
 
+					var map = new google.maps.Map(document.getElementById('map-canvas'),
+					mapOptions);
+				}
 
-		<!-- le Map-->
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-	    <meta charset="utf-8">
+				function loadScript() {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
+						'&signed_in=true&callback=initialize';
+					document.body.appendChild(script);
+				}
 
-	    <style>
-	      html, body, #map-canvas {
-	        height: 400px;
-	        width: 600px;
-	        margin: 20px;
-	        padding: 2px
-	      }
-	    </style>
+				window.onload = loadScript;
 
-	    <script>
-		function initialize() {
-		  var mapOptions = {
-		    zoom: 4,
-		    center: new google.maps.LatLng(46.8167, -71.2167)
-		  };
-
-		  var map = new google.maps.Map(document.getElementById('map-canvas'),
-		      mapOptions);
-		}
-
-		function loadScript() {
-		  var script = document.createElement('script');
-		  script.type = 'text/javascript';
-		  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
-		      '&signed_in=true&callback=initialize';
-		  document.body.appendChild(script);
-		}
-
-		window.onload = loadScript;
-
-	    </script>
+			</script>
+		</div>
 
 	</body>
 </html>

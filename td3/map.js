@@ -13,11 +13,19 @@
 	// ce cas, le seul bouton sur la page, mais notez que vous
 	// pouvez appliquer une fonction de rappel sur plusieurs 
 	// éléments en même temps.
-	$("#monBouton").click(function(){alert("Vous venez de cliquer le bouton!");
-		
-		// Ceci cache tous les paragraphes sur la page
-		$("p").hide();
-		$("#haba2").show();
-		$("#monBouton").hide();
+	$("#btnEn").click(function(){
+		$("#fr").hide();
+		$("#en").show();
+	});
+
+	$("#btnFr").click(function(){
+		$("#en").hide();
+		$("#fr").show();
+	});
+
+	$("#btnRecherche").click(function(){
+	});
+
+	$("#monBouton").click(function(){
 	});
 });
