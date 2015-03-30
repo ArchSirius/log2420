@@ -24,7 +24,7 @@
 	});
 
 	$("#btnRecherche").click(function(){
-		dropPin();
+		dropPin(46.8167,35);
 	});
 
 	$("#monBouton").click(function(){
@@ -45,8 +45,8 @@
 					'&signed_in=true&callback=initialize';
 	document.body.appendChild(script);
 				
-	function dropPin() {
-  		var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+	function dropPin(lat,lang) {
+  		var myLatlng = new google.maps.LatLng(lat,lang);
   		var mapOptions = {
    	 		zoom: 6,
    	 		center: myLatlng
@@ -59,9 +59,7 @@
      	 	title: 'Hello World!'
   	});
 }
-
-	//google.maps.event.addDomListener(window, 'load', initialize);
-	window.onload = loadScript;
+//	window.onload = loadScript;
 
 
 

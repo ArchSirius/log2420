@@ -30,3 +30,11 @@ h1 {
 	width: 500px;
 	/* border: 2px dashed blue; */
 }
+
+.map-canvas
+{
+	height: 400px;
+	width: 600px;
+	margin: 20px;
+	padding: 2px
+}
