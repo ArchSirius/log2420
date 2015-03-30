@@ -14,23 +14,38 @@
 	// pouvez appliquer une fonction de rappel sur plusieurs 
 	// éléments en même temps.
 	$("#btnEn").click(function(){
+		document.getElementById("city").value = document.getElementById("ville").value
 		$("#fr").hide();
 		$("#en").show();
 	});
 
 	$("#btnFr").click(function(){
+		document.getElementById("ville").value = document.getElementById("city").value
 		$("#en").hide();
 		$("#fr").show();
 	});
 
 	$("#btnRecherche").click(function(){
-		dropPin();
+		doSearch("ville");
 	});
 
+	$("#btnSearch").click(function(){
+		doSearch("city");
+	});
+
+	function doSearch(lang) {
+		var ville = document.getElementById(lang).value;
+		alert(ville + " " + coords[ville].lat + " " + coords[ville].lon);
+	};
+
+	var villes = [];
+	var coords;
+
 	$.getJSON( "villes.json", function( data ) {
-		var villes = [];
+		coords = data;
 		$.each( data, function( key, val ) {
 			villes.push( key );
+			coords.push(data);
 		});
 
 		$('#ville').autocomplete({
@@ -38,7 +53,7 @@
 		});
 	});
 
-				
+
 	var mapOptions = {
 		zoom: 4,
 		center: new google.maps.LatLng(46.8167, -71.2167)
@@ -51,7 +66,7 @@
 	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
 					'&signed_in=true&callback=initialize';
 	document.body.appendChild(script);
-				
+
 	function dropPin() {
   		var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
   		var mapOptions = {
