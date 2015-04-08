@@ -39,7 +39,6 @@
 		coords = data;
 		$.each( data, function( key, val ) {
 			villes.push( key );
-			coords.push(data);
 		});
 
 		$('#ville').autocomplete({
