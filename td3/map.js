@@ -15,7 +15,6 @@
 
 	// Boutton Recherche
 	$("#btnRecherche").click(function(){
-
 		doSearch("ville");
 	});
 
@@ -27,6 +26,8 @@
 	// Recherche d'une ville dans la liste
 	function doSearch(lang) {
 		var ville = document.getElementById(lang).value;
+		document.getElementById("info_fr").innerHTML = "Ville sélectionnée : " + ville;
+		document.getElementById("info_en").innerHTML = "Selected city : " + ville;
 		dropPin(coords[ville].lat, coords[ville].lon);
 	};
 
