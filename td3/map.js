@@ -49,8 +49,8 @@
 
 	// Options par défaut de la carte
 	var mapOptions = {
-		zoom: 4,
-		center: new google.maps.LatLng(46.8167, -71.2167)
+		zoom: 10,
+		center: new google.maps.LatLng(45.5, -73.550003)
 	};
 
 	// Carte
@@ -65,7 +65,7 @@
 	function dropPin(lat, lon) {
 		var myLatlng = new google.maps.LatLng(lat, lon);
 		var mapOptions = {
-			zoom: 6,
+			zoom: 10,
 			center: myLatlng
 		};
 		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
